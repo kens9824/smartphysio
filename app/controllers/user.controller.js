@@ -4,48 +4,39 @@ const User = db.User;
 
 // Create and Save a new User
 exports.create = (req, res) => {
-    console.log(req);
-    if (!req.body.email) {
-        res.status(400).send({ message: "email can not be empty!" });
-        return;
-    }
+   
+      const user = new User({
+        email: req.body.email,
+        password: req.body.password,
+      });
 
-    res.status(200).send("done")
-
-    // Create a User
-    //   const user = new Tutorial({
-    //     email: req.body.email,
-    //     password: req.body.password,
-    //   });
-
-    //   // Save User in the database
-    //   User
-    //     .save(user)
-    //     .then(data => {
-    //       res.send(data);
-    //     })
-    //     .catch(err => {
-    //       res.status(500).send({
-    //         message:
-    //           err.message || "Some error occurred while creating the user."
-    //       });
-    //     });
+      // Save User in the database
+      User
+        .save(user)
+        .then(data => {
+          res.send(data);
+        })
+        .catch(err => {
+          res.status(500).send({
+            message:
+              err.message || "Some error occurred while creating the user."
+          });
+        });
 };
 
 // Retrieve all Users from the database.
-exports.findAll = (req, res) => {
+exports.find = (req, res) => {
 
-    console.log("testststaa",req);
-    User.find()
-        .then(data => {
-            res.send(data);
-        })
-        .catch(err => {
-            res.status(500).send({
-                message:
-                    err.message || "Some error occurred while retrieving tutorials."
-            });
-        });
+    // User.find()
+    //     .then(data => {
+    //         res.send(data);
+    //     })
+    //     .catch(err => {
+    //         res.status(500).send({
+    //             message:
+    //                 err.message || "Some error occurred while retrieving tutorials."
+    //         });
+    //     });
 
 };
 

@@ -1,19 +1,11 @@
-module.exports = app => {
-    const {create,findAll} = require("../controllers/user.controller.js");
-  
-    var router = require("express").Router();
-  
+const { create, find } = require("../controllers/user.controller.js");
 
-    // Create a new user
-    router.post("/", create());
+var router = require("express").Router();
 
-    
-    // Retrieve all User
-    router.get("/",findAll());
 
- 
-  
-   
-  
-  };
+router.post("/", create);
+router.get("/", find);
+
+
+module.exports = router;
 

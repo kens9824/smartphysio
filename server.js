@@ -36,7 +36,6 @@ app.get("/", (req, res) => {
 app.use('/user', userRoutes);
 
 
-
 db.mongoose
   .connect(db.url, {
     useNewUrlParser: true,
