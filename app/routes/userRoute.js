@@ -1,4 +1,4 @@
-const { create, find } = require("../controllers/user.controller.js");
+const { create, find } = require("../controllers/userController.js");
 
 var router = require("express").Router();
 

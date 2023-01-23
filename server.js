@@ -25,7 +25,7 @@ app.use(express.json());
 app.use(express.urlencoded({urlencoded:true}));
 
 const db = require("./app/models");
-const userRoutes = require("./app/routes/user.routes");
+const userRoutes = require("./app/routes/userRoute");
 
 
 // simple route

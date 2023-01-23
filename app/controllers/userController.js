@@ -1,6 +1,5 @@
-const db = require("../models");
+const User = require("../models/userModal");
 
-const User = db.User;
 
 // Create and Save a new User
 exports.create = (req, res) => {
@@ -25,18 +24,11 @@ exports.create = (req, res) => {
 };
 
 // Retrieve all Users from the database.
-exports.find = (req, res) => {
+exports.find = async(req, res) => {
 
-    // User.find()
-    //     .then(data => {
-    //         res.send(data);
-    //     })
-    //     .catch(err => {
-    //         res.status(500).send({
-    //             message:
-    //                 err.message || "Some error occurred while retrieving tutorials."
-    //         });
-    //     });
+    console.log("asdasd");
+    xx = await User.find()
+    res.status(200).send(xx)
 
 };
 
