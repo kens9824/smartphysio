@@ -1,17 +1,28 @@
 const User = require("../models/userModal");
+const bcrypt = require('bcrypt');
 
 
 // Create and Save a new User
-exports.create = (req, res) => {
-   
+exports.create = async (req, res) => {
+
+
+  const {email,password,number,name} = req.body
+
+
+  const hashPassword = await bcrypt.hash(password,12)
+
       const user = new User({
         email: req.body.email,
-        password: req.body.password,
+        password: hashPassword,
+        number: number,
+        name:name,
+        role:"admin"
+        
       });
 
       // Save User in the database
-      User
-        .save(user)
+     await user
+        .save()
         .then(data => {
           res.send(data);
         })

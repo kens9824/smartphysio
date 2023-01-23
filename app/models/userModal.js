@@ -79,16 +79,7 @@ const userSchema = mongoose.Schema({
     minlength: 8,
     select: false
   },
-  passwordConfirm: {
-    type: String,
-    required: [true, "Please confirm Password"],
-    validate: {
-      //works only with save and Create
-      validator: function(el) {
-        return el === this.password;
-      }
-    }
-  },
+ 
   passwordChangedAt: {
     type: Date
     // default: Date.now()
