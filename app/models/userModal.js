@@ -77,7 +77,7 @@ const userSchema = mongoose.Schema({
     required: [true, "Please provide Password"],
     type: String,
     minlength: 8,
-    select: false
+    select: true
   },
  
   passwordChangedAt: {
