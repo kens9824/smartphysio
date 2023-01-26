@@ -2,32 +2,22 @@ const mongoose = require("mongoose");
 const validator = require("validator");
 
 const patientSchema = mongoose.Schema({
+
+  user_id:{
+    type: String,
+
+  },
   name: {
     type: String,
     required: [true, "patient Must Have a name"]
   },
-  mobilenumber: {
-    type: Number,
-    required: [true, "Please provide phone number"],
-    unique: false,
-    minlength: 10,
-    maxlength: 10
-  },
   phonenumber: {
     type: Number,
-    required: [true, "Please provide phone number"],
     unique: false,
     minlength: 10,
     maxlength: 10
   },
-  email: {
-    type: String,
-    required: [true, "Please provide email"],
-    unique: true,
-    lowercase: true,
-    validate: [validator.isEmail, "Please provide valid email"]
-  },
-  address1: {
+  address: {
     type: String,
     default: null
   },
@@ -50,15 +40,14 @@ const patientSchema = mongoose.Schema({
     default: null
   },
 
- contactnumber: {
+  contact_phone_number: {
     type: Number,
-    required: [true, "Please provide phone number"],
     unique: false,
     minlength: 10,
     maxlength: 10
   },
 
-  patient_type:   {
+  patient_type: {
     type: String,
     enum: ["OP", "visit"],
     default: "visit"
@@ -71,16 +60,39 @@ const patientSchema = mongoose.Schema({
 
   age: {
     type: Number,
-    
+
   },
 
-  gender:   {
+  gender: {
     type: String,
-    enum: ["male", "female"],
+    enum: ["Male", "Female", "Other"],
   },
+
+  marital_status: {
+    type: String,
+    enum: ["Single", "Married"]
+  },
+  height: {
+    type: String,
+  },
+  weigth: {
+    type: String,
+  },
+  bmi: {
+    type: String,
+  },
+
+  referal: {
+    type: String,
+  },
+  created_at: {
+    type: Date,
+    default: Date.now()
+  }
+
 });
 
 
-const patient = mongoose.model("patient", patientSchema);
+const Patient = mongoose.model("Patient", patientSchema);
 
-module.exports = patient;
+module.exports = Patient;

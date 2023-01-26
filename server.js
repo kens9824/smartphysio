@@ -5,6 +5,8 @@ var bodyParser = require('body-parser');
 
 const dotenv = require("dotenv");
 
+const userRoutes = require("./app/routes/userRoute");
+const patientRoutes = require("./app/routes/patientRoute");
 
 dotenv.config();
 
@@ -25,7 +27,6 @@ app.use(express.json());
 app.use(express.urlencoded({urlencoded:true}));
 
 const db = require("./app/models");
-const userRoutes = require("./app/routes/userRoute");
 
 
 // simple route
@@ -34,6 +35,8 @@ app.get("/", (req, res) => {
 });
 
 app.use('/user', userRoutes);
+app.use('/patient', patientRoutes);
+
 
 
 db.mongoose
