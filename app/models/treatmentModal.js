@@ -1,12 +1,10 @@
 const mongoose = require("mongoose");
 const validator = require("validator");
 
-const patientSchema = mongoose.Schema({
-
+const treatmentSchema = mongoose.Schema({
 
   patient_id:{
     type: String,
-
   },
 
   isActive:{
@@ -14,6 +12,9 @@ const patientSchema = mongoose.Schema({
     default: false
   },
 
+  created_by:{
+    type: String,
+  },
   created_at: {
     type: Date,
     default: Date.now()
@@ -24,6 +25,6 @@ const patientSchema = mongoose.Schema({
 });
 
 
-const Patient = mongoose.model("Patient", patientSchema);
+const Treatment = mongoose.model("Treatment", treatmentSchema);
 
-module.exports = Patient;
+module.exports = Treatment;
