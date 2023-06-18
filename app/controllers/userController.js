@@ -4,63 +4,62 @@ const jwt = require('jsonwebtoken')
 const RequestFailed = require('../response/RequestFailedResponse');
 const { createUser, findByRole } = require("../helper/userhelper");
 
-const { createPatient } = require("../controllers/patientController")
 
 // Create and Save a new User
-exports.createAdmin = async (req, res) => {
-  await createUser(req, res, "admin")
+exports.signup = async (req, res) => {
+  await createUser(req, res, "user")
 
 };
 
-exports.createPatient = async (req, res) => {
+// exports.createPatient = async (req, res) => {
 
-  await createUser(req, res, "patient")
-  await createPatient(req, res)
+//   await createUser(req, res, "patient")
+//   await createPatient(req, res)
 
-};
+// };
 
-exports.createDoctor = async (req, res) => {
+// exports.createDoctor = async (req, res) => {
 
-  const { email, password, number, name } = req.body
+//   const { email, password, number, name } = req.body
 
-  if (!email) {
-    return RequestFailed(res, 400, "email");
-  }
-  if (!password) {
-    return RequestFailed(res, 400, "password");
-  }
-  if (!number) {
-    return RequestFailed(res, 400, "number");
-  }
+//   if (!email) {
+//     return RequestFailed(res, 400, "email");
+//   }
+//   if (!password) {
+//     return RequestFailed(res, 400, "password");
+//   }
+//   if (!number) {
+//     return RequestFailed(res, 400, "number");
+//   }
 
-  if (!name || !name.trim().length) {
-    return RequestFailed(res, 400, "name");
-  }
+//   if (!name || !name.trim().length) {
+//     return RequestFailed(res, 400, "name");
+//   }
 
-  const hashPassword = await bcrypt.hash(password, 12)
+//   const hashPassword = await bcrypt.hash(password, 12)
 
-  const user = new User({
-    email: req.body.email,
-    password: hashPassword,
-    number: number,
-    name: name,
-    role: "doctor"
+//   const user = new User({
+//     email: req.body.email,
+//     password: hashPassword,
+//     number: number,
+//     name: name,
+//     role: "doctor"
 
-  });
+//   });
 
-  // Save User in the database
-  await user
-    .save()
-    .then(data => {
-      res.send(data);
-    })
-    .catch(err => {
-      res.status(500).send({
-        message:
-          err.message || "Some error occurred while creating the user."
-      });
-    });
-};
+//   // Save User in the database
+//   await user
+//     .save()
+//     .then(data => {
+//       res.send(data);
+//     })
+//     .catch(err => {
+//       res.status(500).send({
+//         message:
+//           err.message || "Some error occurred while creating the user."
+//       });
+//     });
+// };
 
 exports.login = async (req, res) => {
 

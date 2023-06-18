@@ -7,7 +7,7 @@ const db = {};
 db.mongoose = mongoose;
 db.url = dbConfig.url;
 db.user = require("./userModal");
-db.patient = require("./patientModal");
+db.category = require("./categoryModal.js");
 
 
 module.exports = db;

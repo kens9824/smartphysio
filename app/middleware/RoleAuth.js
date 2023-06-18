@@ -13,21 +13,21 @@ const roleCheck =(tokenRole, desireRole,NextFunction)=>{
   }
 }
 
-const IsPatient = (req, res, NextFunction) => {
-  try {
-    roleCheck(req.data.role,"patient",NextFunction)
-  } catch (error) {
-    return InternalServerError(res, error);
-  }
-};
+// const IsPatient = (req, res, NextFunction) => {
+//   try {
+//     roleCheck(req.data.role,"patient",NextFunction)
+//   } catch (error) {
+//     return InternalServerError(res, error);
+//   }
+// };
 
-const IsDoctor = (req, res, NextFunction) => {
-  try {
-    roleCheck(req.data.role,"doctor",NextFunction)
-  } catch (error) {
-    return InternalServerError(res, error);
-  }
-};
+// const IsDoctor = (req, res, NextFunction) => {
+//   try {
+//     roleCheck(req.data.role,"doctor",NextFunction)
+//   } catch (error) {
+//     return InternalServerError(res, error);
+//   }
+// };
 
 const IsAdmin = (req, res, NextFunction) => {
   try {
@@ -39,7 +39,5 @@ const IsAdmin = (req, res, NextFunction) => {
 
 
 module.exports = {
-  IsDoctor,
-  IsPatient,
   IsAdmin
 }

@@ -5,7 +5,7 @@ const RequestFailed = require('../response/RequestFailedResponse')
 
 
 exports.createUser = async (req, res,role) => {
-
+console.log("test");
 
     const { email, password, number, name } = req.body
   
@@ -42,6 +42,7 @@ exports.createUser = async (req, res,role) => {
     await user
       .save()
       .then(data => {
+        console.log(data);
         res.send(data);
       })
       .catch(err => {

@@ -6,7 +6,8 @@ var bodyParser = require('body-parser');
 const dotenv = require("dotenv");
 
 const userRoutes = require("./app/routes/userRoute");
-const patientRoutes = require("./app/routes/patientRoute");
+const categoryRoutes = require("./app/routes/categoryRoute");
+
 
 dotenv.config();
 
@@ -31,11 +32,13 @@ const db = require("./app/models");
 
 // simple route
 app.get("/", (req, res) => {
-  res.json({ message: "Welcome to Smart Physio Backend." });
+  res.send("Welcome to vidbling Backend.");
 });
 
 app.use('/user', userRoutes);
-app.use('/patient', patientRoutes);
+app.use('/category', categoryRoutes);
+
+// app.use('/patient', patientRoutes);
 
 
 
