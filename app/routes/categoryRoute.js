@@ -11,8 +11,8 @@ var router = require("express").Router();
 router.post("/",Auth,IsAdmin, createCategory);
 router.get("/all",Auth, getAllCategory);
 router.get("/:id",Auth, findCategoryById);
-router.put("/:id",Auth, updateCategory);
-router.delete("/:id",Auth, deleteCategory);
+router.put("/:id",Auth,IsAdmin, updateCategory);
+router.delete("/:id",Auth,IsAdmin, deleteCategory);
 
 
 // router.get("/role/:role",Auth, find);

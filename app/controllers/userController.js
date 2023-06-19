@@ -3,6 +3,8 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken')
 const RequestFailed = require('../response/RequestFailedResponse');
 const { createUser, findByRole } = require("../helper/userhelper");
+const { responseSuccess } = require("../helper/response");
+
 
 
 // Create and Save a new User
@@ -121,7 +123,8 @@ exports.findOne = async (req, res) => {
   if (req.params.id) {
     user = await User.findById({ _id: req.params.id })
     if (user) {
-      res.status(200).send(user)
+       responseSuccess(res, "User fetch successfully",user)
+
     }
     else {
       return RequestFailed(res, 404, "record not Found");

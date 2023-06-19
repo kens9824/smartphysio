@@ -3,13 +3,13 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken')
 const RequestFailed = require('../response/RequestFailedResponse');
 const { createUser, findByRole } = require("../helper/userhelper");
-const Category = require("../models/categoryModal");
-const { category } = require("../models");
+const Plateform = require("../models/plateformModal");
+const { plateform } = require("../models");
 const { responseSuccess } = require("../helper/response");
 
 
 // Create and Save a new User
-exports.createCategory = async (req, res) => {
+exports.createPlateform = async (req, res) => {
   // await createUser(req, res, "user")
 
   const { name } = req.body
@@ -19,16 +19,16 @@ exports.createCategory = async (req, res) => {
     return RequestFailed(res, 400, "name");
   }
 
-  const category = new Category({
+  const plateform = new Plateform({
     name: name,
   });
 
   // Save User in the database
-  await category
+  await plateform
     .save()
     .then(data => {
       console.log(data);
-      responseSuccess(res, "category created successfully",data)
+      responseSuccess(res, "plateform created successfully",data)
     })
     .catch(err => {
       res.status(500).send({
@@ -40,19 +40,19 @@ exports.createCategory = async (req, res) => {
 };
 
 // Retrieve single Users from the database.
-exports.findCategoryById = async (req, res) => {
+exports.findPlateformById = async (req, res) => {
   try {
     const id = req.params.id
     if (!id) {
-      return RequestFailed(res, 404, "category id not found");
+      return RequestFailed(res, 404, "plateform id not found");
     }
-    const category = await Category.findById({ _id: id })
-    if (category) {
-      console.log(category);
-      responseSuccess(res, "category fetch successfully",category)
+    const plateform = await Plateform.findById({ _id: id })
+    if (plateform) {
+      console.log(plateform);
+      responseSuccess(res, "plateform fetch successfully",plateform)
     }
     else {
-      return RequestFailed(res, 404, "category data not found with this id");
+      return RequestFailed(res, 404, "plateform data not found with this id");
 
     }
 
@@ -68,14 +68,14 @@ exports.findCategoryById = async (req, res) => {
 
 };
 
-// Find all Category from database
-exports.getAllCategory = async (req, res) => {
+// Find all Plateform from database
+exports.getAllPlateform = async (req, res) => {
 
   try {
-    const category = await Category.find()
-    if (category) {
-      responseSuccess(res, "category list fetch successfully",category)
-      // res.status(200).send(category)
+    const plateform = await Plateform.find()
+    if (plateform) {
+      responseSuccess(res, "plateform list fetch successfully",plateform)
+      // res.status(200).send(plateform)
     }
 
   } catch (error) {
@@ -83,25 +83,27 @@ exports.getAllCategory = async (req, res) => {
   }
 
 };
-// Update a category by the id in the request
-exports.updateCategory = async (req, res) => {
+// Update a plateform by the id in the request
+exports.updatePlateform = async (req, res) => {
 
   try {
     const id = req.params.id
     const { name } = req.body
     if (!id) {
-      return RequestFailed(res, 404, "category id not found");
+      return RequestFailed(res, 404, "plateform id not found");
     }
-    const category = await Category.findById({ _id: id })
-    if (category) {
+    const plateform = await Plateform.findById({ _id: id })
+    if (plateform) {
 
-      category.name = name
-      await category
+      plateform.name = name
+      await plateform
         .save()
         .then(data => {
           console.log(data);
-         return responseSuccess(res, "category update successfully",data)
+          responseSuccess(res, "plateform update successfully",data)
 
+
+          res.send(data);
         })
         .catch(err => {
           res.status(500).send({
@@ -112,7 +114,7 @@ exports.updateCategory = async (req, res) => {
 
     }
     else {
-      return RequestFailed(res, 404, "category data not found with this id");
+      return RequestFailed(res, 404, "plateform data not found with this id");
 
     }
 
@@ -125,15 +127,15 @@ exports.updateCategory = async (req, res) => {
 
 };
 
-// Delete a Category with the specified id in the request
-exports.deleteCategory = async(req, res) => {
+// Delete a Plateform with the specified id in the request
+exports.deletePlateform = async(req, res) => {
   try {
     const id = req.params.id
     if (!id) {
-      return RequestFailed(res, 404, "category id not found");
+      return RequestFailed(res, 404, "plateform id not found");
     }
-    const category =  await Category.deleteOne({ _id: id })
-    responseSuccess(res, "category delete successfully")
+    const plateform =  await Plateform.deleteOne({ _id: id })
+    responseSuccess(res, "plateform delete successfully")
 
 
   } catch (error) {

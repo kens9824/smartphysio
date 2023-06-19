@@ -7,6 +7,9 @@ const dotenv = require("dotenv");
 
 const userRoutes = require("./app/routes/userRoute");
 const categoryRoutes = require("./app/routes/categoryRoute");
+const plateformRoutes = require("./app/routes/plateformRoute");
+const indexRoutes = require("./app/routes/indexRoute");
+
 
 
 dotenv.config();
@@ -35,8 +38,8 @@ app.get("/", (req, res) => {
   res.send("Welcome to vidbling Backend.");
 });
 
-app.use('/user', userRoutes);
-app.use('/category', categoryRoutes);
+app.use('/api',indexRoutes)
+
 
 // app.use('/patient', patientRoutes);
 
