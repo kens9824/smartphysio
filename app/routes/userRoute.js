@@ -1,7 +1,7 @@
-const { createAdmin, find,findOne,login, signup } = require("../controllers/userController.js");
+const { createAdmin, find, findOne, login, signup, changePassword } = require("../controllers/userController.js");
 const { createUser } = require("../helper/userhelper.js");
 const Auth = require("../middleware/Auth.js");
-const {IsPatient, IsDoctor} = require("../middleware/RoleAuth.js");
+const { IsPatient, IsDoctor } = require("../middleware/RoleAuth.js");
 
 var router = require("express").Router();
 
@@ -14,8 +14,9 @@ router.post("/signup", signup);
 router.post("/login", login);
 
 
-router.get("/role/:role",Auth, find);
-router.get("/:id",Auth, findOne);
+router.post("/changepassword", Auth, changePassword);
+router.get("/role/:role", Auth, find);
+router.get("/:id", Auth, findOne);
 
 
 

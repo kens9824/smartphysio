@@ -1,31 +1,41 @@
 const mongoose = require("mongoose");
 const validator = require("validator");
+const { roleList } = require("../utilies/enum.js");
+
+const platform = mongoose.Schema({
+  name: {
+    type: String
+  },
+
+  profileUrl: {
+    type: String
+  },
+})
 
 const userSchema = mongoose.Schema({
-  name: {
+  firstName: {
     type: String,
-    required: [true, "User Must Have a name"]
+    required: [true, "User Must Have a First name"]
   },
-  displayName: {
+
+  lastName: {
     type: String,
-    default: null
+    required: [true, "User Must Have a Last name"]
   },
-  aadhar: {
-    type: Number,
-    default: null
-  },
-  pan: {
-    type: Number,
-    default: null
-  },
-  gst: {
-    type: Number,
-    default: null
-  },
-  company: {
+
+  referral_code: {
     type: String,
-    default: null
+    unique: true,
+    required: [true, "User Must Have a referral_code"]
   },
+
+  referrer: {
+    type: mongoose.Types.ObjectId,
+    // required: [true, "User Must Have a Last name"]
+  },
+
+
+
   number: {
     type: Number,
     required: [true, "Please provide phone number"],
@@ -40,34 +50,59 @@ const userSchema = mongoose.Schema({
     lowercase: true,
     validate: [validator.isEmail, "Please provide valid email"]
   },
-  address1: {
+
+  country: {
     type: String,
-    default: null
+    // required: [true, "Please provide email"],
+    // unique: true,
+    // lowercase: true,
+    // validate: [validator.isEmail, "Please provide valid email"]
   },
-  address2: {
-    type: String,
-    default: null
-  },
-  locality: {
-    type: String,
-    default: null
-  },
-  zip: {
-    type: Number,
-    default: null
-  },
+
   city: {
     type: String,
-    default: null
+    // required: [true, "Please provide email"],
+    // unique: true,
+    // lowercase: true,
+    // validate: [validator.isEmail, "Please provide valid email"]
   },
-  state: {
+
+  address: {
     type: String,
-    default: null
+    // required: [true, "Please provide email"],
+    // unique: true,
+    // lowercase: true,
+    // validate: [validator.isEmail, "Please provide valid email"]
   },
+
+  zipcode: {
+    type: String,
+    // required: [true, "Please provide email"],
+    // unique: true,
+    // lowercase: true,
+    // validate: [validator.isEmail, "Please provide valid email"]
+  },
+
+  isSMSAlert: {
+    type: Boolean,
+    required: [true, "Please provide email"],
+    default: false
+  },
+
+  platform: [platform],
+
+  photos:[String],
+
+  isActive: {
+    type: Boolean,
+    required: [true, "Please provide email"],
+    default: true
+  },
+
   role: {
     type: String,
-    enum: ["user", "admin"],
-    default: "user"
+    required: [true, "Please provide role"],
+    enum: [roleList],
   },
   profileImage: {
     type: String,
@@ -79,7 +114,7 @@ const userSchema = mongoose.Schema({
     minlength: 8,
     select: true
   },
- 
+
   passwordChangedAt: {
     type: Date
     // default: Date.now()

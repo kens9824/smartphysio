@@ -1,18 +1,15 @@
 const express = require("express");
 const cors = require("cors");
 var bodyParser = require('body-parser'); 
-
-
+// const fileUpload = require("express-fileupload");
 const dotenv = require("dotenv");
 
-const userRoutes = require("./app/routes/userRoute");
-const categoryRoutes = require("./app/routes/categoryRoute");
-const plateformRoutes = require("./app/routes/plateformRoute");
+dotenv.config();
+
 const indexRoutes = require("./app/routes/indexRoute");
 
 
 
-dotenv.config();
 
 const app = express();
 
@@ -21,7 +18,10 @@ var corsOptions = {
 };
 
 
-app.use(cors(corsOptions));
+app.use(cors());
+// app.use(
+//   fileUpload()
+// );
 // app.use(bodyParser);
 
 // parse requests of content-type - application/json
@@ -58,7 +58,7 @@ db.mongoose
     process.exit();
   });
 
-  app.use('/api', userRoutes)
+  
 
 // set port, listen for requests
 const PORT = process.env.PORT || 3000;

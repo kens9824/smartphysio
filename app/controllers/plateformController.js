@@ -2,10 +2,11 @@ const User = require("../models/userModal");
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken')
 const RequestFailed = require('../response/RequestFailedResponse');
-const { createUser, findByRole } = require("../helper/userhelper");
+const { createUser, findByRole, generateString } = require("../helper/userhelper");
 const Plateform = require("../models/plateformModal");
 const { plateform } = require("../models");
 const { responseSuccess } = require("../helper/response");
+const { request } = require("express");
 
 
 // Create and Save a new User
@@ -28,7 +29,7 @@ exports.createPlateform = async (req, res) => {
     .save()
     .then(data => {
       console.log(data);
-      responseSuccess(res, "plateform created successfully",data)
+      responseSuccess(res, "plateform created successfully", data)
     })
     .catch(err => {
       res.status(500).send({
@@ -36,7 +37,6 @@ exports.createPlateform = async (req, res) => {
           err.message || "Some error occurred while creating the user."
       });
     });
-
 };
 
 // Retrieve single Users from the database.
@@ -49,7 +49,7 @@ exports.findPlateformById = async (req, res) => {
     const plateform = await Plateform.findById({ _id: id })
     if (plateform) {
       console.log(plateform);
-      responseSuccess(res, "plateform fetch successfully",plateform)
+      responseSuccess(res, "plateform fetch successfully", plateform)
     }
     else {
       return RequestFailed(res, 404, "plateform data not found with this id");
@@ -72,13 +72,20 @@ exports.findPlateformById = async (req, res) => {
 exports.getAllPlateform = async (req, res) => {
 
   try {
+    // console.log(123);
+    // console.log(await generateString(), "test");
+
+
+    // console.log(referralCodeGenerator.alpha('lowercase', 12));
     const plateform = await Plateform.find()
+    
     if (plateform) {
-      responseSuccess(res, "plateform list fetch successfully",plateform)
+      responseSuccess(res, "plateform list fetch successfully", plateform)
       // res.status(200).send(plateform)
     }
 
   } catch (error) {
+    console.log(error);
     return RequestFailed(res, 500, error);
   }
 
@@ -100,10 +107,7 @@ exports.updatePlateform = async (req, res) => {
         .save()
         .then(data => {
           console.log(data);
-          responseSuccess(res, "plateform update successfully",data)
-
-
-          res.send(data);
+          responseSuccess(res, "plateform update successfully", data)
         })
         .catch(err => {
           res.status(500).send({
@@ -128,13 +132,13 @@ exports.updatePlateform = async (req, res) => {
 };
 
 // Delete a Plateform with the specified id in the request
-exports.deletePlateform = async(req, res) => {
+exports.deletePlateform = async (req, res) => {
   try {
     const id = req.params.id
     if (!id) {
       return RequestFailed(res, 404, "plateform id not found");
     }
-    const plateform =  await Plateform.deleteOne({ _id: id })
+    const plateform = await Plateform.deleteOne({ _id: id })
     responseSuccess(res, "plateform delete successfully")
 
 

@@ -10,7 +10,6 @@ const { responseSuccess } = require("../helper/response");
 // Create and Save a new User
 exports.signup = async (req, res) => {
   await createUser(req, res, "admin")
-
 };
 
 // exports.createPatient = async (req, res) => {
@@ -78,7 +77,7 @@ exports.login = async (req, res) => {
   const user = await User.findOne({ email: email })
   if (!user) {
     return RequestFailed(res, 401, "user not found");
-    
+
   } else {
     const isValidate = await bcrypt.compare(password, user.password)
 
@@ -139,65 +138,6 @@ exports.findOne = async (req, res) => {
 exports.update = (req, res) => {
 
 };
-
-exports.changePassword = async(req, res) => {
-try {
-  const {  oldpassword, newpassword, confirmpassword } = req.body
-  if (req.data.id) {
-    user = await User.findById({ _id: req.data.id })
-    if (user) {
-      if (!oldpassword) {
-        return RequestFailed(res, 400, "oldpassword");
-      }
-      if (!newpassword) {
-        return RequestFailed(res, 400, "newpassword");
-      }
-      if (!confirmpassword) {
-        return RequestFailed(res, 400, "confirmpassword");
-      }
-      if(newpassword != confirmpassword){
-        return RequestFailed(res, 400, "new password and confirmpassword should be same");
-      }
-
-
-      const isValidate = await bcrypt.compare(oldpassword, user.password)
-
-      if(!isValidate){
-        return RequestFailed(res, 403, "old password is incorrect");
-      }
-
-      const hashPassword = await bcrypt.hash(newpassword, 12)
-
-      user.password = hashPassword
-
-
-      await user
-      .save()
-      .then(data => {
-        console.log(data);
-        responseSuccess(res, "password change successfully",data)
-      })
-      .catch(err => {
-        res.status(500).send({
-          message:
-            err.message || "Some error occurred while creating the user."
-        });
-      });
-      
-
-    }
-    else {
-      return RequestFailed(res, 404, "record not Found");
-    }
-  }
-
-
-  
-} catch (error) {
-  
-}
-};
-
 
 // Delete a User with the specified id in the request
 exports.delete = (req, res) => {

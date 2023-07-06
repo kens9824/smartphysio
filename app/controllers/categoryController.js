@@ -11,32 +11,36 @@ const { responseSuccess } = require("../helper/response");
 // Create and Save a new User
 exports.createCategory = async (req, res) => {
   // await createUser(req, res, "user")
+  try {
+    const { name } = req.body
 
-  const { name } = req.body
 
-
-  if (!name || !name.trim().length) {
-    return RequestFailed(res, 400, "name");
-  }
-
-  const category = new Category({
-    name: name,
-  });
-
-  // Save User in the database
-  await category
-    .save()
-    .then(data => {
-      console.log(data);
-      responseSuccess(res, "category created successfully",data)
-    })
-    .catch(err => {
-      res.status(500).send({
-        message:
-          err.message || "Some error occurred while creating the user."
-      });
+    if (!name || !name.trim().length) {
+      return RequestFailed(res, 400, "name");
+    }
+  
+    const category = new Category({
+      name: name,
     });
-
+  
+    // Save User in the database
+    await category
+      .save()
+      .then(data => {
+        responseSuccess(res, "category created successfully",data)
+      })
+      .catch(err => {
+        res.status(500).send({
+          message:
+            err.message || "Some error occurred while creating the category."
+        });
+      });
+  } catch (error) {
+    res.status(500).send({
+      message:
+      error.message || "Some error occurred while creating the category."
+    });
+  }
 };
 
 // Retrieve single Users from the database.
@@ -100,7 +104,7 @@ exports.updateCategory = async (req, res) => {
         .save()
         .then(data => {
           console.log(data);
-         return responseSuccess(res, "category update successfully",data)
+          responseSuccess(res, "category update successfully",data)
 
         })
         .catch(err => {
@@ -124,6 +128,7 @@ exports.updateCategory = async (req, res) => {
 
 
 };
+
 
 // Delete a Category with the specified id in the request
 exports.deleteCategory = async(req, res) => {

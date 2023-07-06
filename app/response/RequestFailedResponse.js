@@ -1,6 +1,6 @@
 const Response = require('express')
 
- const RequestFailed = (
+const RequestFailed = async (
   res,
   code,
   error,
@@ -22,6 +22,7 @@ const Response = require('express')
 
   res.status(code).json({
     success: false,
+    code: code,
     message: composeMessage,
   });
 };

@@ -5,11 +5,11 @@ const { IsAdmin} = require("../middleware/RoleAuth.js");
 var router = require("express").Router();
 
 
-router.post("/",Auth,IsAdmin, createPlateform);
+router.post("/",IsAdmin, createPlateform);
 router.get("/all",Auth, getAllPlateform);
 router.get("/:id",Auth, findPlateformById);
-router.put("/:id",Auth,IsAdmin, updatePlateform);
-router.delete("/:id",Auth,IsAdmin, deletePlateform);
+router.put("/:id",IsAdmin, updatePlateform);
+router.delete("/:id",IsAdmin, deletePlateform);
 
 
 
